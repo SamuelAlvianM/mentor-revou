@@ -1,0 +1,4 @@
+deploy/.env
+raw/
+node_modules/
+.next/

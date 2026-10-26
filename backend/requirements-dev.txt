@@ -1,0 +1,2 @@
+-r requirements.txt
+pillow>=11  # scripts/make_shots.py
