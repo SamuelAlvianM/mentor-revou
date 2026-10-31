@@ -147,10 +147,20 @@ cd "$HOME/$REMOTE_DIR/backend"
 [[ -d .venv ]] || python3 -m venv .venv
 .venv/bin/pip install --quiet --upgrade pip
 .venv/bin/pip install --quiet -r requirements.txt
-EMPTY=$(.venv/bin/python -c "from app import app; from models import Project
-with app.app_context(): print(int(Project.query.count() == 0))")
+# Skema lama (kolom baru belum ada) atau DB kosong → perlu seed. Cek dibungkus try/except.
+EMPTY=$(.venv/bin/python -c "
+from app import app; from models import Project
+try:
+    with app.app_context(): print(int(Project.query.count() == 0))
+except Exception:
+    print(1)")
 if [[ "$FORCE_SEED" == true || "$EMPTY" == 1 ]]; then
-  echo "[backend] seed.py (DB kosong atau --seed)..."
+  # seed.py men-DROP semua tabel (termasuk pesan kontak) → simpan cadangan dulu.
+  if [[ -f instance/mentor_revou.db ]]; then
+    cp instance/mentor_revou.db "instance/backup-$(date +%Y%m%d-%H%M%S).db"
+    echo "[backend] cadangan DB disimpan di backend/instance/"
+  fi
+  echo "[backend] seed.py (DB kosong, skema lama, atau --seed)..."
   .venv/bin/python seed.py
 else
   echo "[backend] DB sudah berisi — seed dilewati."

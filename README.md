@@ -49,7 +49,7 @@ Projects, skills and the timeline live in `backend/seed.py`. Edit, then re-run `
 
 ## Screenshots
 
-Live sites are shot from their public pages. Management Asset and Sistem Reporting were run locally
+Live sites are shot from their public pages. Management Asset and Reporting System were run locally
 against throwaway demo databases (no real records). Parlor Hills POS has no preview and shows a
 generated schematic. Nothing from the SAM-AMANDA-GALANG folder is used. To refresh the live-site shots:
 

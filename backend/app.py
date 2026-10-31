@@ -16,6 +16,7 @@ def create_app() -> Flask:
     load_dotenv(BASE_DIR / ".env")
 
     app = Flask(__name__)
+    app.json.sort_keys = False  # keep skill groups in seed order (Languages, Frameworks, ...)
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
         "DATABASE_URL", f"sqlite:///{BASE_DIR / 'instance' / 'mentor_revou.db'}"
     )

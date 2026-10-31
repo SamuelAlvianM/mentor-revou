@@ -28,6 +28,11 @@ class Project(db.Model):
     year = db.Column(db.String(20), nullable=False)
     stack_json = db.Column(db.Text, nullable=False, default="[]")
     highlights_json = db.Column(db.Text, nullable=False, default="[]")
+    features_json = db.Column(db.Text, nullable=False, default="[]")  # [[title, text]]
+    build_json = db.Column(db.Text, nullable=False, default="[]")  # [[title, text]] engineering notes
+    facts_json = db.Column(db.Text, nullable=False, default="[]")  # [[label, value]]
+    links_json = db.Column(db.Text, nullable=False, default="[]")  # [[label, url]]
+    logo = db.Column(db.String(200))
     url = db.Column(db.String(200))
     status = db.Column(db.String(40), nullable=False, default="Live")
     featured = db.Column(db.Boolean, nullable=False, default=False)
@@ -52,6 +57,11 @@ class Project(db.Model):
             "year": self.year,
             "stack": json.loads(self.stack_json),
             "highlights": json.loads(self.highlights_json),
+            "features": json.loads(self.features_json),
+            "build": json.loads(self.build_json),
+            "facts": json.loads(self.facts_json),
+            "links": json.loads(self.links_json),
+            "logo": self.logo,
             "url": self.url,
             "status": self.status,
             "featured": self.featured,
